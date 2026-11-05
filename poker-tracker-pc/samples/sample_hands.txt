@@ -1,0 +1,131 @@
+PokerStars Hand #250000000001:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/10/20 21:15:02 CET [2026/10/20 16:15:02 ET]
+Table 'Aase III' 6-max Seat #4 is the button
+Seat 1: VillainA ($10.00 in chips)
+Seat 2: VillainB ($12.35 in chips)
+Seat 3: VillainC ($9.80 in chips)
+Seat 4: Hero ($10.00 in chips)
+Seat 5: VillainD ($10.00 in chips)
+Seat 6: VillainE ($15.20 in chips)
+VillainD: posts small blind $0.05
+VillainE: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [Ah Qs]
+VillainA: folds
+VillainB: folds
+VillainC: folds
+Hero: raises $0.15 to $0.25
+VillainD: folds
+VillainE: calls $0.15
+*** FLOP *** [Kd 7c 2h]
+VillainE: checks
+Hero: bets $0.30
+VillainE: folds
+Uncalled bet ($0.30) returned to Hero
+Hero collected $0.52 from pot
+Hero: doesn't show hand
+*** SUMMARY ***
+Total pot $0.55 | Rake $0.03
+Board [Kd 7c 2h]
+Seat 1: VillainA folded before Flop (didn't bet)
+Seat 4: Hero (button) collected ($0.52)
+
+
+
+PokerStars Hand #250000000002:  Hold'em No Limit ($0.05/$0.10 USD) - 2026/10/20 21:16:10 CET [2026/10/20 16:16:10 ET]
+Table 'Aase III' 6-max Seat #4 is the button
+Seat 1: VillainA ($10.00 in chips)
+Seat 2: VillainB ($12.35 in chips)
+Seat 3: VillainC ($9.80 in chips)
+Seat 4: VillainD ($10.00 in chips)
+Seat 5: VillainE ($15.20 in chips)
+Seat 6: Hero ($10.27 in chips)
+VillainE: posts small blind $0.05
+Hero: posts big blind $0.10
+*** HOLE CARDS ***
+Dealt to Hero [Jc Jd]
+VillainA: raises $0.20 to $0.30
+VillainB: folds
+VillainC: folds
+VillainD: folds
+VillainE: folds
+Hero: raises $0.70 to $1
+VillainA: calls $0.70
+*** FLOP *** [9s 5h 3c]
+Hero: checks
+VillainA: checks
+*** TURN *** [9s 5h 3c] [Qh]
+Hero: bets $1.20
+VillainA: calls $1.20
+*** RIVER *** [9s 5h 3c Qh] [2d]
+Hero: checks
+VillainA: checks
+*** SHOW DOWN ***
+Hero: shows [Jc Jd] (a pair of Jacks)
+VillainA: shows [Qc Qs] (three of a kind, Queens)
+VillainA collected $4.33 from pot
+*** SUMMARY ***
+Total pot $4.45 | Rake $0.12
+Board [9s 5h 3c Qh 2d]
+
+
+
+Poker Hand #RC2000000003: Hold'em No Limit ($0.02/$0.05) - 2026/10/21 10:00:00
+Table 'RushAndCash123' 6-max Seat #1 is the button
+Seat 1: a1b2c3 ($5.00 in chips)
+Seat 2: f00d ($4.10 in chips)
+Seat 3: Hero ($5.00 in chips)
+Seat 4: 9x9x ($6.00 in chips)
+Seat 5: zz top ($5.00 in chips)
+f00d: posts small blind $0.02
+Hero: posts big blind $0.05
+*** HOLE CARDS ***
+Dealt to a1b2c3
+Dealt to f00d
+Dealt to Hero [7h 2c]
+Dealt to 9x9x
+Dealt to zz top
+9x9x: raises $0.07 to $0.12
+zz top: calls $0.12
+a1b2c3: folds
+f00d: folds
+Hero: folds
+*** FLOP *** [Ah Kh 3d]
+9x9x: bets $0.15
+zz top: raises $0.35 to $0.50
+9x9x: folds
+Uncalled bet ($0.35) returned to zz top
+*** SHOWDOWN ***
+zz top collected $0.58 from pot
+*** SUMMARY ***
+Total pot $0.61 | Rake $0.03 | Jackpot $0 | Bingo $0 | Fortune $0 | Tax $0
+Board [Ah Kh 3d]
+
+
+
+PokerStars Hand #250000000004: Tournament #3900000001, $1.00+$0.10 USD Hold'em No Limit - Level V (50/100) - 2026/10/22 19:30:00 CET [2026/10/22 14:30:00 ET]
+Table '3900000001 12' 9-max Seat #2 is the button
+Seat 1: Hero (2400 in chips)
+Seat 2: Fish1 (5000 in chips)
+Seat 3: Reg2 (3100 in chips)
+Seat 4: Reg3 (2900 in chips) is sitting out
+Hero: posts the ante 10
+Fish1: posts the ante 10
+Reg2: posts the ante 10
+Reg2: posts small blind 50
+Hero: posts big blind 100
+*** HOLE CARDS ***
+Dealt to Hero [As Ad]
+Fish1: raises 200 to 300
+Reg2: folds
+Hero: raises 2090 to 2390 and is all-in
+Fish1: calls 2090
+*** FLOP *** [Kc 8d 4s]
+*** TURN *** [Kc 8d 4s] [5c]
+*** RIVER *** [Kc 8d 4s 5c] [Jh]
+*** SHOW DOWN ***
+Hero: shows [As Ad] (a pair of Aces)
+Fish1: shows [Kd Qd] (a pair of Kings)
+Hero collected 4860 from pot
+*** SUMMARY ***
+Total pot 4860 | Rake 0
+Board [Kc 8d 4s 5c Jh]

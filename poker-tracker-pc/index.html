@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Покерный трекер</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f4f3ef;
+  --surface: #fcfcfb;
+  --surface-2: #f0efec;
+  --border: #e2e0da;
+  --text: #0b0b0b;
+  --text-2: #52514e;
+  --text-3: #85837d;
+  --accent: #2a78d6;
+  --accent-ink: #ffffff;
+  --pos: #1f7a3a;
+  --neg: #c53030;
+  --s1: #2a78d6;
+  --s2: #eb6834;
+  --s3: #1baf7a;
+  --grid: #e8e6e0;
+  --div-pos: 42, 120, 214;
+  --div-neg: 227, 73, 72;
+  --div-mid: #f0efec;
+  --shadow: 0 1px 2px rgba(0,0,0,.05), 0 2px 8px rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #121211;
+    --surface: #1a1a19;
+    --surface-2: #232321;
+    --border: #2f2f2c;
+    --text: #f0efec;
+    --text-2: #c3c2b7;
+    --text-3: #8d8c84;
+    --accent: #3987e5;
+    --pos: #5fc47e;
+    --neg: #f07a7a;
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --grid: #2a2a28;
+    --div-pos: 57, 135, 229;
+    --div-neg: 230, 103, 103;
+    --div-mid: #383835;
+    --shadow: none;
+  }
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+header.top {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.top-inner { max-width: 1200px; margin: 0 auto; padding: 0 16px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+.brand { font-weight: 700; font-size: 16px; padding: 14px 0; display: flex; gap: 8px; align-items: center; }
+.brand span { color: var(--accent); font-size: 20px; }
+nav.tabs { display: flex; gap: 2px; overflow-x: auto; }
+nav.tabs button {
+  background: none; border: 0; padding: 16px 12px 14px; color: var(--text-2); font: inherit; cursor: pointer;
+  border-bottom: 2px solid transparent; white-space: nowrap;
+}
+nav.tabs button:hover { color: var(--text); }
+nav.tabs button.active { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+@media (max-width: 720px) {
+  .top-inner { gap: 0; }
+  .brand { padding: 10px 0 0; width: 100%; }
+  nav.tabs button { padding: 10px 10px 9px; }
+}
+main { max-width: 1200px; margin: 0 auto; padding: 20px 16px 60px; }
+h2 { font-size: 15px; margin: 0 0 12px; font-weight: 600; }
+h3 { font-size: 13px; margin: 0 0 8px; font-weight: 600; color: var(--text-2); }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; box-shadow: var(--shadow); margin-bottom: 16px; }
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+.card-head h2 { margin: 0; }
+.muted { color: var(--text-3); }
+.small { font-size: 12px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid2 > .card { margin-bottom: 0; }
+@media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
+
+.kpis { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-bottom: 16px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; box-shadow: var(--shadow); }
+.kpi .lbl { color: var(--text-2); font-size: 12px; }
+.kpi .val { font-size: 22px; font-weight: 650; margin-top: 2px; letter-spacing: -.01em; }
+.kpi .sub { color: var(--text-3); font-size: 12px; }
+.pos { color: var(--pos); }
+.neg { color: var(--neg); }
+.grid2 > * { min-width: 0; }
+#db-path { word-break: break-all; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 16px; }
+.filters label { font-size: 12px; color: var(--text-2); display: flex; flex-direction: column; gap: 2px; }
+select, input, textarea {
+  font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border);
+  border-radius: 7px; padding: 6px 8px; min-width: 0;
+}
+textarea { resize: vertical; }
+select:focus, input:focus, textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.btn {
+  font: inherit; border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  border-radius: 7px; padding: 7px 12px; cursor: pointer; white-space: nowrap;
+}
+.btn:hover { background: var(--surface-2); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); font-weight: 600; }
+.btn.primary:hover { filter: brightness(1.07); }
+.btn.danger { color: var(--neg); }
+.btn.sm { padding: 3px 8px; font-size: 12px; }
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; }
+.seg button { font: inherit; font-size: 12px; background: var(--surface); color: var(--text-2); border: 0; padding: 4px 10px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--border); }
+.seg button.on { background: var(--surface-2); color: var(--text); font-weight: 600; }
+
+.form-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px 12px; }
+.form-grid label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--text-2); }
+.form-grid .wide { grid-column: 1 / -1; }
+.hidden { display: none !important; }
+.timer { font-size: 13px; padding: 6px 10px; border-radius: 7px; background: var(--surface-2); }
+
+.table-wrap { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { padding: 7px 10px; text-align: right; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--text-2); font-weight: 600; font-size: 12px; position: sticky; top: 0; background: var(--surface); }
+th.sortable { cursor: pointer; user-select: none; }
+th.sortable:hover { color: var(--text); }
+th:first-child, td:first-child, th.l, td.l { text-align: left; }
+tbody tr:hover td { background: var(--surface-2); }
+tr.click { cursor: pointer; }
+td.note { max-width: 220px; overflow: hidden; text-overflow: ellipsis; color: var(--text-2); }
+.empty { padding: 32px; text-align: center; color: var(--text-3); }
+.tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 99px; background: var(--surface-2); color: var(--text-2); }
+
+.drop {
+  border: 2px dashed var(--border); border-radius: 10px; padding: 22px; text-align: center; color: var(--text-2);
+  transition: background .15s, border-color .15s;
+}
+.drop.over { border-color: var(--accent); background: var(--surface-2); }
+.drop p { margin: 0 0 10px; }
+
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; overflow: visible; }
+.chart .axis text { fill: var(--text-3); font-size: 11px; }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .zero { stroke: var(--text-3); stroke-width: 1; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--text-2); margin-bottom: 6px; }
+.legend i { display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; }
+
+#tip {
+  position: fixed; pointer-events: none; z-index: 100; background: var(--surface); color: var(--text);
+  border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.15); display: none; max-width: 280px;
+}
+#tip .t { font-weight: 600; margin-bottom: 4px; }
+#tip .r { display: flex; justify-content: space-between; gap: 14px; }
+#tip .r i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+
+.hgrid { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; max-width: 560px; }
+.hgrid div {
+  aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600;
+  border-radius: 3px; background: var(--div-mid); color: var(--text); cursor: default;
+}
+.hgrid div.none { color: var(--text-3); font-weight: 400; }
+.scale { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-2); margin-top: 10px; }
+.scale .bar { width: 160px; height: 10px; border-radius: 3px; }
+
+.stat-name { font-weight: 600; }
+.stat-hint { color: var(--text-3); font-size: 12px; white-space: normal; text-align: left; }
+
+.modal-back { position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.modal { background: var(--surface); border-radius: 12px; max-width: 760px; width: 100%; max-height: 85vh; display: flex; flex-direction: column; border: 1px solid var(--border); }
+.modal-head { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+.modal pre { margin: 0; padding: 16px; overflow: auto; font-size: 12px; line-height: 1.5; white-space: pre-wrap; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 8px; z-index: 200; font-size: 13px; max-width: 90vw; }
+.help { color: var(--text-2); font-size: 13px; }
+.help li { margin-bottom: 4px; }
+.help code { background: var(--surface-2); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><span>♠</span> Покерный трекер</div>
+    <nav class="tabs" id="tabs">
+      <button data-tab="overview">Обзор</button>
+      <button data-tab="sessions">Сессии</button>
+      <button data-tab="tourneys">Турниры</button>
+      <button data-tab="hands">Анализ раздач</button>
+      <button data-tab="opponents">Оппоненты</button>
+      <button data-tab="settings">Настройки</button>
+    </nav>
+  </div>
+</header>
+<main id="view"><div class="empty">Загрузка…</div></main>
+<div id="tip"></div>
+<script src="parser.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
